@@ -1,56 +1,87 @@
 # URL Shortener
 
-A simple URL shortener service using MongoDB, Express, NanoID for generating unique IDs, and Mongoose.
+A simple URL shortener built using Node.js, Express, MongoDB, Mongoose, and Nanoid.
 
-## Table of Contents
+## Features
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Endpoints](#endpoints)
-- [License](#license)
+- Generate a short URL for a given long URL
+- Redirect to the original URL using the short ID
+- Get analytics for a short URL
+
+## Tech Stack
+
+- **Node.js**: Backend runtime
+- **Express.js**: Web framework for Node.js
+- **MongoDB**: NoSQL database for storing URL mappings
+- **Mongoose**: ODM for MongoDB
+- **Nanoid**: Library for generating unique short IDs
 
 ## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/Yash-Tibadiya/URL-Shortener.git
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd URL-Shortener
-    ```
-3. Install the dependencies:
-    ```bash
-    npm install
-    ```
 
-## Usage
+   ```sh
+   git clone https://github.com/your-repo/url-shortener.git
+   cd url-shortener
+   ```
 
-1. Start the server:
-    ```bash
-    npm start
-    ```
-2. The server will run on `http://localhost:8000`.
+2. Install dependencies:
 
-## Endpoints
+   ```sh
+   npm install
+   ```
 
-### Generate New Short URL
+3. Start the server:
+   ```sh
+   npm start
+   ```
 
-- **URL:** `/url`
-- **Method:** `POST`
-- **Handler:** `handleGenerateNewShortURL`
+- The server will run on `http://localhost:8000`.
 
-### Get Short URL
+## API Endpoints
 
-- **URL:** `/:shortId`
-- **Method:** `GET`
-- **Handler:** `handleGetShortURL`
+### 1. Generate a Short URL
 
-### Get URL Analytics
+- **Endpoint:** `POST /url`
+- **Description:** Generates a new short URL for a given long URL.
+- **Request Body:**
+  ```json
+  {
+    "url": "https://example.com"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "shortId": "abcd1234",
+    "url": "https://example.com",
+    "shortUrl": "http://localhost:8000/abcd1234"
+  }
+  ```
 
-- **URL:** `/url/analytics/:shortId`
-- **Method:** `GET`
-- **Handler:** `handleGetAnalytics`
+### 2. Redirect to Original URL
+
+- **Endpoint:** `GET /:shortId`
+- **Description:** Redirects the user to the original URL associated with the given short ID.
+- **Example:** `GET http://localhost:8000/abcd1234`
+- **Response:** Redirects to `https://example.com`
+
+### 3. Get URL Analytics
+
+- **Endpoint:** `GET /url/analytics/:shortId`
+- **Description:** Retrieves analytics for a given short URL, such as the number of clicks.
+- **Response:**
+  ```json
+  {
+    "totalClicks": 1,
+    "analytics": [
+      {
+        "timestamp": 1738827690864,
+        "_id": "67a467aad60745295b38d639"
+      }
+    ]
+  }
+  ```
 
 ## License
 

@@ -12,7 +12,7 @@ async function handleGenerateNewShortURL(req, res) {
     redirectURL: body.url,
     visitHistory: [],
   });
-  return res.status(200).json({ shortId: shortID });
+  return res.status(200).json({ shortId: shortID, url: body.url, shortUrl: `http://localhost:8000/${shortID}` });
 }
 
 async function handleGetShortURL(req, res) {
